@@ -84,6 +84,22 @@ module FlickRaw
     def to_a; @a end
     def inspect; @a.inspect end
     def size; @a.size end
+    
+    # Marco Singer
+    def include?(obj)
+      if obj.is_a?(FlickRaw::Response)
+        @a.each{|item| return true if item.id == obj.id}
+      end
+    end
+    
+    # Marco Singer
+    def -(obj)
+      result =[]
+      if obj.is_a?(FlickRaw::Response)
+        @a.each{ |item| result.push(item) if item.id != obj.id}
+      end
+      return result
+    end
   end
 
   class FailedResponse < StandardError
